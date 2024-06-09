@@ -1,0 +1,31 @@
+version: "3.9"
+services:
+  my_fast_api:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    env_file:
+      - .env
+    environment:
+      - IN_DOCKER=true
+    ports:
+      - "8080:8080"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    container_name: game_prediction_api
+
+  my_frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    env_file:
+      - .env
+    environment:
+      - IN_DOCKER=true
+    depends_on:
+      - my_fast_api
+    ports:
+      - "8501:8501"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    container_name: streamlit_app

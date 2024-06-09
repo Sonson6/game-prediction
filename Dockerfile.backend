@@ -1,0 +1,16 @@
+FROM python:3.11-buster
+
+RUN pip install poetry==1.8.2
+
+WORKDIR /code
+
+COPY pyproject.toml poetry.lock ./
+
+RUN poetry install --without dev
+
+COPY mlruns ./mlruns/
+
+COPY game_prediction ./game_prediction/
+
+# ENTRYPOINT ["poetry", "run", "python", "-m", "calculator_api.main"]
+CMD ["poetry", "run", "uvicorn", "game_prediction.api:app", "--host", "0.0.0.0" ,"--port", "8080", "--reload"]

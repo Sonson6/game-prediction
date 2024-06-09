@@ -1,0 +1,20 @@
+game_data:
+  variables:
+    - name: possession%
+      methods:
+        - AVERAGE
+    - name: HOME_GOAL
+      methods:
+        - AVERAGE
+        - LAST
+
+
+table2:
+  variables:
+    - name: X
+      methods:
+        - method3
+        - method4
+    - name: Y
+      methods:
+        - method3
