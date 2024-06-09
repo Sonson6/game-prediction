@@ -58,15 +58,3 @@ jobs:
         with:
           fallback: 1.0.0 # Optional fallback tag to use when no tag can be found
           #workingDirectory: another/path/where/a/git/repo/is/checked/out # Optional alternative working directory
-
-      - name: Build package
-        run: |
-          poetry version ${{ steps.previoustag.outputs.tag }}
-          poetry build
-
-      - name: Publish package
-        env:
-          PYPI_API_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
-        run: |
-          poetry config pypi-token.pypi ${PYPI_API_TOKEN}
-          poetry publish
